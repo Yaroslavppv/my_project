@@ -1,15 +1,11 @@
 import pytest
-from src.masks import get_mask_card_number, get_mask_account
 
-
-#@pytest.mark.parametrize("number, answer", [])
-
-
+from src.masks import get_mask_account, get_mask_card_number
 
 
 def test_get_mask_card_number():
     with pytest.raises(TypeError) as exc_info:
-        get_mask_card_number('Привет')
+        get_mask_card_number("Привет")
     assert str(exc_info.value) == "Номер карты может быть только числовым значением!"
 
     with pytest.raises(TypeError) as exc_info:
@@ -32,12 +28,12 @@ def test_get_mask_card_number():
         get_mask_card_number(21314)
     assert str(exc_info.value) == "Номер карты состоит не из 16 цифр!"
 
-    assert get_mask_card_number(7000792289606361) == '7000 79** **** 6361'
+    assert get_mask_card_number(7000792289606361) == "7000 79** **** 6361"
 
 
 def test_get_mask_account():
     with pytest.raises(TypeError) as exc_info:
-        get_mask_account('Привет')
+        get_mask_account("Привет")
     assert str(exc_info.value) == "Номер счёта может быть только числовым значением!"
 
     with pytest.raises(TypeError) as exc_info:
@@ -56,6 +52,6 @@ def test_get_mask_account():
         get_mask_account(21314)
     assert str(exc_info.value) == "Номер счёта не может быть меньше 6 цифт!"
 
-    assert get_mask_account(73654108430135874305) == '**4305'
+    assert get_mask_account(73654108430135874305) == "**4305"
 
-    assert get_mask_account(123456) == '**3456'
+    assert get_mask_account(123456) == "**3456"
