@@ -1,5 +1,7 @@
-from src.masks import get_mask_account, get_mask_card_number
 from typing import Optional
+
+from src.masks import get_mask_account, get_mask_card_number
+
 
 def mask_account_card(client_data: Optional[str] = None) -> str:
     """
@@ -35,7 +37,13 @@ def get_date(time_date: Optional[str] = None) -> str:
     """
     if type(time_date) is not str:
         raise TypeError("Данные могут быть только строкой!")
-    if time_date[:4].isdigit() and time_date[4] == "-" and time_date[5:7].isdigit() and time_date[7] == "-" and time_date[8:10].isdigit():
+    if (
+        time_date[:4].isdigit()
+        and time_date[4] == "-"
+        and time_date[5:7].isdigit()
+        and time_date[7] == "-"
+        and time_date[8:10].isdigit()
+    ):
         return f"{time_date[8:10]}.{time_date[5:7]}.{time_date[:4]}"
     else:
         raise ValueError("Неерный формат даты!")
