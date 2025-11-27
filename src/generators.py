@@ -48,6 +48,8 @@ def card_number_generator(start: int, finish: int) -> Iterator:
         raise ValueError("Конечный параметр не может быть меньше или равен начальному!")
     elif start < 0:
         raise ValueError("Стартовое число не может быть меньше 0!")
+    elif finish > 9999999999999999:
+        raise ValueError("Финишное число не может быть больше 9999999999999999!")
     while start != finish + 1:
         card_number_str = str(start).zfill(16)
         card_number_str = (

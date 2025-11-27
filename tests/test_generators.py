@@ -215,6 +215,7 @@ def test_transaction_descriptions(
         (1, 1, None, ValueError, "Конечный параметр не может быть меньше или равен начальному!"),
         (-1, 1, None, ValueError, "Стартовое число не может быть меньше 0!"),
         (1, 3, ["0000 0000 0000 0001", "0000 0000 0000 0002", "0000 0000 0000 0003"], None, None),
+        (9999999999999998, 10000000000000000, None, ValueError, "Финишное число не может быть больше 9999999999999999!"),
     ],
 )
 def test_card_number_generator(test_number_one, test_number_two, expected_output, expected, exception_message):
