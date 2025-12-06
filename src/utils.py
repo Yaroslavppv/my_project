@@ -1,5 +1,6 @@
 import json
 from pathlib import Path
+
 from src.external_api import currency_to_rub
 
 
@@ -9,13 +10,13 @@ def get_transactions(filepath: str) -> list[dict]:
     pathfile = Path(filepath)
 
     if not pathfile.exists():
-        print(f'Файл {filepath} не найден!')
+        print(f"Файл {filepath} не найден!")
         return []
     try:
-        with open(pathfile, 'r', encoding='utf-8') as file:
+        with open(pathfile, "r", encoding="utf-8") as file:
             data_transactions = json.load(file)
             if not isinstance(data_transactions, list):
-                print(f'Файл {filepath} не содержить список!')
+                print(f"Файл {filepath} не содержить список!")
                 return []
             return data_transactions
 
@@ -30,11 +31,19 @@ def get_transactions(filepath: str) -> list[dict]:
 def get_transaction_amount(transaction: dict) -> float:
     if not isinstance(transaction, dict):
         raise TypeError("transaction должен быть словарем!")
-    if transaction['operationAmount']['currency']['code'] == 'USD' or transaction['operationAmount']['currency']['code'] == 'EUR':
-        return round(float(currency_to_rub(transaction['operationAmount']['amount'], transaction['operationAmount']['currency']['code'])), 2)
-    elif transaction['operationAmount']['currency']['code'] == 'RUB':
-        return float(transaction['operationAmount']['amount'])
+    if (
+        transaction["operationAmount"]["currency"]["code"] == "USD"
+        or transaction["operationAmount"]["currency"]["code"] == "EUR"
+    ):
+        return round(
+            float(
+                currency_to_rub(
+                    transaction["operationAmount"]["amount"], transaction["operationAmount"]["currency"]["code"]
+                )
+            ),
+            2,
+        )
+    elif transaction["operationAmount"]["currency"]["code"] == "RUB":
+        return float(transaction["operationAmount"]["amount"])
     else:
-        raise ValueError('Такая валюта не подерживается!')
-
-#print(get_transaction_amount({"id": 441945886,"state": "EXECUTED","date": "2019-08-26T10:50:58.294041","operationAmount": {"amount": "3","currency": {"name": "руб.","code": "USD"}},"description": "Перевод организации","from": "Maestro 1596837868705199","to": "Счет 64686473678894779589"}))
+        raise ValueError("Такая валюта не подерживается!")
