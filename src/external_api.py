@@ -18,6 +18,6 @@ def currency_to_rub(amount: float, currency: str) -> float:
     result = response.json()
 
     if status_code == 200:
-        return result
+        return result['result']
     else:
         print(f"Запрос не был успешным. Возможная причина: {response.reason}")
