@@ -21,6 +21,3 @@ def currency_to_rub(amount: float, currency: str) -> float:
         return result
     else:
         print(f"Запрос не был успешным. Возможная причина: {response.reason}")
-
-
-print(currency_to_rub(1.0, "USD"))
