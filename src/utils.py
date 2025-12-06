@@ -5,6 +5,11 @@ from src.external_api import currency_to_rub
 
 
 def get_transactions(filepath: str) -> list[dict]:
+    """
+    Функция, принимающая на вход путь до JSON-файла и возвращающая список словарей с данными о финансовых транзакциях
+    :param filepath: путь до файла
+    :return: возвращает список транзакций
+    """
     if not isinstance(filepath, str):
         raise TypeError("Файл должен быть указан в формате строки!")
     pathfile = Path(filepath)
@@ -29,6 +34,11 @@ def get_transactions(filepath: str) -> list[dict]:
 
 
 def get_transaction_amount(transaction: dict) -> float:
+    """
+    Функция, принимающая на вход транзакцию и возвращащая сумму транзакции в рублях(RUB)
+    :param transaction: транзакия
+    :return: возвращает значение в рублях (float)
+    """
     if not isinstance(transaction, dict):
         raise TypeError("transaction должен быть словарем!")
     if (

@@ -5,6 +5,12 @@ from dotenv import load_dotenv
 
 
 def currency_to_rub(amount: float, currency: str) -> float:
+    """
+    Функция, конвертирующая заданую валюту в рубли(RUB)
+    :param amount: сумма для конвертации
+    :param currency: валюта, которая конвертируется в рубли
+    :return: сумма в рублях
+    """
     load_dotenv()
     API_KEY = os.getenv("API_KEY")
     url = "https://api.apilayer.com/exchangerates_data/convert"
