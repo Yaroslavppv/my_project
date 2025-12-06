@@ -5,14 +5,16 @@ import pytest
 
 import src.utils as utils
 
+absolute_path = Path(__file__).parent.parent / "data" / "operations.json"
+
 
 @pytest.mark.parametrize(
     "test_transactions, expected_output, expected, exception_message, mock_test, mock_data, mock_captured",
     [
         (1, None, TypeError, "Файл должен быть указан в формате строки!", None, None, None),
         ("1", [], None, None, None, None, None),
-        (None, None, None, None, True, "", "Не удалось декодировать JSON из файла: ..\\data\\operations.json\n"),
-        (None, None, None, None, True, "{}", "Файл ..\\data\\operations.json не содержить список!\n"),
+        (None, None, None, None, True, "", f"Не удалось декодировать JSON из файла: {absolute_path}\n"),
+        (None, None, None, None, True, "{}", f"Файл {absolute_path} не содержить список!\n"),
     ],
 )
 def test_get_transactions(
@@ -24,8 +26,8 @@ def test_get_transactions(
         assert str(exc_info.value) == exception_message
     elif mock_test:
         with patch("builtins.open", mock_open(read_data=mock_data)) as m:
-            utils.get_transactions(str(Path("../data/operations.json")))
-            m.assert_called_with(Path("../data/operations.json"), "r", encoding="utf-8")
+            utils.get_transactions(str(absolute_path))
+            m.assert_called_with(absolute_path, "r", encoding="utf-8")
             captured = capsys.readouterr()
             assert captured.out == mock_captured
     else:
