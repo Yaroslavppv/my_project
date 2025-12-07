@@ -14,9 +14,6 @@ def get_transactions(filepath: str) -> list[dict]:
         raise TypeError("Файл должен быть указан в формате строки!")
     pathfile = Path(filepath)
 
-    if not pathfile.exists():
-        print(f"Файл {filepath} не найден!")
-        return []
     try:
         with open(pathfile, "r", encoding="utf-8") as file:
             data_transactions = json.load(file)
@@ -27,6 +24,9 @@ def get_transactions(filepath: str) -> list[dict]:
 
     except json.JSONDecodeError:
         print(f"Не удалось декодировать JSON из файла: {filepath}")
+        return []
+    except FileNotFoundError:
+        print(f"Файл {filepath} не найден!")
         return []
     except Exception as e:
         print(f"Произошла непредвиденная ошибка при чтении файла: {e}")
