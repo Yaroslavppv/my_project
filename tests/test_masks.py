@@ -50,7 +50,7 @@ def test_get_mask_account():
 
     with pytest.raises(ValueError) as exc_info:
         get_mask_account(21314)
-    assert str(exc_info.value) == "Номер счёта не может быть меньше 6 цифт!"
+    assert str(exc_info.value) == "Номер счёта не может быть меньше 6 цифр!"
 
     assert get_mask_account(73654108430135874305) == "**4305"
 
