@@ -95,7 +95,7 @@ def test_excel_read_operation(expected, file, return_message, mock_test, mock_da
         assert str(exc_info.value) == return_message
     elif mock_test and expected:
         mock_dataframe = pd.DataFrame(mock_data)
-        with patch("pandas.read_excel", return_value=mock_dataframe) as mock_read:
+        with patch("pandas.read_excel", return_value=mock_dataframe):
             with pytest.raises(expected) as exc_info:
                 excel_read_operation(str(file))
             assert str(exc_info.value) == return_message
