@@ -55,7 +55,7 @@ def test_csv_read_operations(expected, file, return_message, mock_test, mock_dat
     "expected, file, return_message, mock_test, mock_data",
     [
         (TypeError, 123, "Файл должен быть указан в формате строки!", None, None),
-        #    (None, excel_file, [], True, "id;state;date;amount;currency_name;currency_code;from;to;description"),
+        (StopIteration, excel_file, "Файл пустой или содержит только заголовок", True, [{}]),
         (FileNotFoundError, "ads.csv", "Файл ads.csv не найден!", None, None),
         (
             None,
@@ -93,6 +93,12 @@ def test_excel_read_operation(expected, file, return_message, mock_test, mock_da
         with pytest.raises(expected) as exc_info:
             excel_read_operation(file)
         assert str(exc_info.value) == return_message
+    elif mock_test and expected:
+        mock_dataframe = pd.DataFrame(mock_data)
+        with patch("pandas.read_excel", return_value=mock_dataframe) as mock_read:
+            with pytest.raises(expected) as exc_info:
+                excel_read_operation(str(file))
+            assert str(exc_info.value) == return_message
     elif mock_test:
         mock_dataframe = pd.DataFrame(mock_data)
         with patch("pandas.read_excel", return_value=mock_dataframe) as mock_read:
