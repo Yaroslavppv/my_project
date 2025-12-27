@@ -22,7 +22,8 @@ def sort_by_date(user_list_dict: list, descending: bool = True) -> list:
     new_list = sorted(user_list_dict, key=lambda date: date["date"], reverse=descending)
     return new_list
 
-def filter_by_currency(user_list_dict: list, format:str,  currency: str = "RUB") -> list:
+
+def filter_by_currency(user_list_dict: list, format: str, currency: str = "RUB") -> list:
     """
     Функция сортирует полученные данные по ключу валюты 'code'.
     :param user_list_dict: список словарей для сортировки
@@ -32,7 +33,7 @@ def filter_by_currency(user_list_dict: list, format:str,  currency: str = "RUB")
     new_list = []
     if format == "json":
         for el in user_list_dict:
-            if el["operationAmount"]["currency"].get('code') == currency:
+            if el["operationAmount"]["currency"].get("code") == currency:
                 new_list.append(el)
     elif format == "csv" or format == "xlsx":
         for el in user_list_dict:
