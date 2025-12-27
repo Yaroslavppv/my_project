@@ -60,17 +60,19 @@ def test_csv_read_operations(expected, file, return_message, mock_test, mock_dat
         (
             None,
             excel_file,
-            {
-                "id": {0: 650703},
-                "state": {0: "EXECUTED"},
-                "date": {0: "2023-09-05T11:30:32Z"},
-                "amount": {0: 16210},
-                "currency_name": {0: "Sol"},
-                "currency_code": {0: "PEN"},
-                "from": {0: "Счет 58803664561298323391"},
-                "to": {0: "Счет 39745660563456619397"},
-                "description": {0: "Перевод организации"},
-            },
+            [
+                {
+                    "id": 650703,
+                    "state": "EXECUTED",
+                    "date": "2023-09-05T11:30:32Z",
+                    "amount": 16210,
+                    "currency_name": "Sol",
+                    "currency_code": "PEN",
+                    "from": "Счет 58803664561298323391",
+                    "to": "Счет 39745660563456619397",
+                    "description": "Перевод организации",
+                }
+            ],
             True,
             [
                 {
