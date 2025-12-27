@@ -26,7 +26,7 @@ def mask_account_card(client_data: Optional[str] = None) -> str:
         if "Счет" in letters:
             return f"{letters}{get_mask_account(int(number))}"
         else:
-            return f"{letters}{get_mask_card_number(int(number))}"
+            return f"{letters}{get_mask_card_number(str(number))}"
 
 
 def get_date(time_date: Optional[str] = None) -> str:
