@@ -1,5 +1,6 @@
 import logging
 import re
+from collections import Counter
 from pathlib import Path
 
 log_file = Path(__file__).parent.parent / "logs" / "operations.log"
@@ -57,10 +58,11 @@ def process_bank_operations(data: list[dict], categories: list) -> dict:
         operations_logger.error("Словарь операций должен быть словарем!")
         raise TypeError("Словарь операций должен быть словарем!")
 
-    dict_operations = dict.fromkeys(categories, 0)
-    for operation in data:
-        if operation["description"] in categories:
-            dict_operations[operation["description"]] += 1
+    dict_operations = []
+    for el in data:
+        if el.get("description") in categories:
+            dict_operations.append(el["description"])
+    counter = Counter(dict_operations)
 
     operations_logger.info("Функция выполнена успешно")
-    return dict_operations
+    return dict(counter)
