@@ -55,7 +55,7 @@ def excel_read_operation(excel_file: str):
         if data_operations.empty:
             file_operations_logger.error("Файл пустой или содержит только заголовок")
             raise StopIteration("Файл пустой или содержит только заголовок")
-        return data_operations.to_dict()
+        return data_operations.to_dict('records')
     except FileNotFoundError:
         file_operations_logger.error(f"Файл {excel_file} не найден!")
         raise FileNotFoundError(f"Файл {excel_file} не найден!")
